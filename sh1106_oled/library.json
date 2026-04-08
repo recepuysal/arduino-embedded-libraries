@@ -1,0 +1,36 @@
+{
+  "name": "Sh1106Oled",
+  "version": "1.0.0",
+  "description": "Custom SH1106 1.3-inch 128x64 OLED driver with graphics, text engine, and bitmap/logo support for STM32/Arduino.",
+  "keywords": [
+    "arduino",
+    "stm32",
+    "sh1106",
+    "oled",
+    "display",
+    "i2c",
+    "graphics",
+    "embedded"
+  ],
+  "repository": {
+    "type": "git",
+    "url": "https://github.com/recepuysal/arduino-embedded-libraries.git"
+  },
+  "authors": [
+    {
+      "name": "Recep Uysal"
+    }
+  ],
+  "license": "MIT",
+  "frameworks": [
+    "arduino"
+  ],
+  "platforms": [
+    "ststm32",
+    "atmelavr",
+    "espressif32"
+  ],
+  "headers": [
+    "SH1106.h"
+  ]
+}

@@ -1,67 +1,107 @@
-# arduino-embedded-libraries
+# Arduino Embedded Libraries
 
-**TR:** Arduino ve STM32 projelerinde tekrar kullanilabilir gomulu C++ kutuphaneleri.  
-**EN:** Reusable embedded C++ libraries for Arduino and STM32 projects.
+Arduino ve STM32 projeleri icin tekrar kullanilabilir, hafif ve acik kaynak gomulu C++ kutuphaneleri.
 
-## Libraries / Kutuphaneler
+English: Reusable, lightweight and open-source embedded C++ libraries for Arduino and STM32 projects.
 
-### `DcFan`
-- PWM (`0..255`) ile fan surme
-- Tach kesmesi ile pulse sayma
-- RPM olcumu:
-  - pencere tabanli (`ReadRpm`)
-  - anlik/periyot tabanli (`ReadRpmInstant`)
+## Icerik
 
-### `FanControl`
-- Hedef RPM takibi (`SetFanSpeed`)
-- PID + feedforward tabanli kapali cevrim kontrol
-- Ters PWM surus destegi (`SetPwmInverted`)
-- Salinim azaltma:
-  - adim limiti (`SetMaxPwmStep`)
-  - PID trim limiti (`SetMaxPidTrim`)
+- `dc_fan`: PWM ile fan surme ve tach geri bildirimi ile RPM olcumu
+- `fan_control`: PID + feedforward tabanli hedef RPM kontrolu
+- `mlx90614`: MLX90614 I2C kizilotesi sicaklik sensor surucusu
 
-### `Mlx90614`
-- MLX90614 I2C sensor surucusu
-- Ortam sicakligi (`ReadAmbientC`)
-- Nesne sicakligi (`ReadObjectC`)
-- Adres yonetimi (`SetAddress`)
+## Kutuphaneler
 
-## Repository Layout / Dizin Yapisi
+### 1) `dc_fan`
 
-Kaynak kodlar kutuphane bazli klasorler altindadir:
+Amac:
+- DC fani PWM ile surmek
+- Tach pulse sinyalinden RPM hesaplamak
 
-- `dc_fan/`
-  - `dc_fan.h`, `dc_fan.cpp`
-  - `dc_fan_description.txt`
-- `fan_control/`
-  - `fan_control.h`, `fan_control.cpp`
-  - `fan_control_description.txt`
-- `mlx90614/`
-  - `mlx90614.h`, `mlx90614.cpp`
-  - `mlx90614_description.txt`
+Temel ozellikler:
+- `SetPwmDuty(0..255)` ile duty kontrolu
+- `ReadRpm(sampleMs)` ile pencere tabanli RPM olcumu
+- `ReadRpmInstant(timeoutMs)` ile anlik/periyot tabanli RPM olcumu
 
-## Quick Start / Hizli Baslangic
+Klasor:
+- `dc_fan/dc_fan.h`
+- `dc_fan/dc_fan.cpp`
+- `dc_fan/dc_fan_description.txt`
+
+### 2) `fan_control`
+
+Amac:
+- Fan devrini belirlenen hedef RPM etrafinda sabit tutmak
+
+Temel ozellikler:
+- `SetFanSpeed(targetRpm)` ile hedef RPM
+- `SetPidGains(kp, ki, kd)` ile PID ayari
+- `SetFeedforwardEnabled(true/false)` ile feedforward ac/kapat
+- `SetPwmInverted(true/false)` ile ters PWM surucu destegi
+- `SetMaxPwmStep(...)` ve `SetMaxPidTrim(...)` ile salinim azaltma
+
+Klasor:
+- `fan_control/fan_control.h`
+- `fan_control/fan_control.cpp`
+- `fan_control/fan_control_description.txt`
+
+### 3) `mlx90614`
+
+Amac:
+- MLX90614 sensorunden ortam ve nesne sicakligi okumak
+
+Temel ozellikler:
+- `Begin()` ile cihaz baglantisi kontrolu
+- `ReadAmbientC(float&)` ile ortam sicakligi
+- `ReadObjectC(float&)` ile nesne sicakligi
+- `SetAddress(uint8_t)` ile I2C adres yonetimi
+
+Klasor:
+- `mlx90614/mlx90614.h`
+- `mlx90614/mlx90614.cpp`
+- `mlx90614/mlx90614_description.txt`
+
+## Dizin Yapisi
+
+```text
+arduino-embedded-libraries/
+|-- dc_fan/
+|   |-- dc_fan.h
+|   |-- dc_fan.cpp
+|   `-- dc_fan_description.txt
+|-- fan_control/
+|   |-- fan_control.h
+|   |-- fan_control.cpp
+|   `-- fan_control_description.txt
+|-- mlx90614/
+|   |-- mlx90614.h
+|   |-- mlx90614.cpp
+|   `-- mlx90614_description.txt
+`-- README.md
+```
+
+## Hizli Baslangic
+
+Bu repo bir kutuphane koleksiyonu oldugu icin dosyalari kendi PlatformIO projenize ekleyerek kullanabilirsiniz.
+
+Ornek derleme komutu:
 
 ```bash
 pio run
 ```
 
-Varsayilan test ortami:
-- Board: `nucleo_g474re`
-- Framework: Arduino (PlatformIO)
+## Neden Bu Yapi?
 
-## Why this project? / Neden bu proje?
-
+- Gömülü sistem odakli sade API
 - Dinamik bellek kullanmadan hafif tasarim
-- Gömülü sistem dostu API
-- Gercek donanim odakli fan + sicaklik kontrol ornegi
+- Gercek donanim senaryolarina uygun fan + sicaklik altyapisi
 
-## License
+## Lisans
 
-MIT (onerilen)
+MIT
 
-## Roadmap
+## Gelistirme Yol Haritasi
 
-- Kutuphaneleri `lib/` veya ayri repo formatina gecirmek
-- Her kutuphane icin `examples/` eklemek
-- `library.json` metadatasini tamamlamak
+- Her kutuphane icin `examples/` klasoru ekleme
+- PlatformIO icin `library.json` metadatasi ekleme
+- Ileri test ornekleri ve dokumantasyon genisletme

@@ -28,16 +28,17 @@
 
 ## Repository Layout / Dizin Yapisi
 
-Mevcut kaynak kodlar `src/` altindadir:
+Kaynak kodlar kutuphane bazli klasorler altindadir:
 
-- `src/dc_fan.h`, `src/dc_fan.cpp`
-- `src/fan_control.h`, `src/fan_control.cpp`
-- `src/mlx90614.h`, `src/mlx90614.cpp`
-
-Ek dokuman dosyalari:
-- `dc_fan_description.txt`
-- `fan_control_description.txt`
-- `mlx90614_description.txt`
+- `dc_fan/`
+  - `dc_fan.h`, `dc_fan.cpp`
+  - `dc_fan_description.txt`
+- `fan_control/`
+  - `fan_control.h`, `fan_control.cpp`
+  - `fan_control_description.txt`
+- `mlx90614/`
+  - `mlx90614.h`, `mlx90614.cpp`
+  - `mlx90614_description.txt`
 
 ## Quick Start / Hizli Baslangic
 

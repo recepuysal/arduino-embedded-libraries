@@ -1,0 +1,91 @@
+DC FAN KÜTÜPHANESİ AÇIKLAMASI (TR)
+-----------------------------------
+
+Adı:
+- DcFan
+
+Dosyalar:
+- src/dc_fan.h
+- src/dc_fan.cpp
+
+Amaç:
+- STM32/Arduino projelerinde DC fanı PWM ile sürmek ve tach çıkışı üzerinden güvenilir RPM ölçümü yapmak.
+
+Çözdüğü problemler:
+- Fan hızını 0..255 PWM duty ile kontrol etmek.
+- Tach sinyalinden gelen pulse’ları sayarak devir (RPM) hesaplamak.
+- Anlık devirdeki küçük değişimleri daha hassas görmek (pulse periyodu tabanlı ölçüm).
+
+Kapsam (ne yapar / ne yapmaz):
+- YAPAR:
+  - PWM pinini başlatır ve duty ayarlar.
+  - Tach pine kesme bağlar ve pulse sayar.
+  - Pencere tabanlı RPM hesaplar: ReadRpm(sampleMs).
+  - Pulse periyodundan hızlı RPM hesaplar: ReadRpmInstant(timeoutMs).
+- YAPMAZ:
+  - PID kontrol veya otomatik hedef RPM takibi (bunu FanControl yapar).
+  - Fan arıza tespiti (0 RPM okuma üzerinden üst kod karar vermelidir).
+
+Temel API:
+- Begin(uint8_t pwmDuty)
+  - PWM ve tach pinlerini hazırlar, başlangıç duty’sini yazar.
+- SetPwmDuty(uint8_t pwmDuty) / GetPwmDuty()
+  - 0..255 aralığında PWM duty okuma/yazma.
+- GetPwmPercent()
+  - Duty değerini yüzde cinsinden döndürür.
+- ReadRpm(uint32_t sampleMs)
+  - Verilen pencere süresinde sayılan pulse’lara göre RPM hesaplar.
+- ReadRpmInstant(uint32_t timeoutMs)
+  - Son pulse periyoduna bakarak anlık RPM hesaplar, timeout süresince pulse gelmezse 0 döner.
+
+Tipik kullanım senaryosu:
+- Fan ile ilk deneyler:
+  - PWM değerini değiştirip RPM çıktısını seri porttan izlemek.
+- Üst katta PID/FanControl kullanmadan önce:
+  - Fanın minimum/maximum RPM karakteristiğini ölçmek.
+
+Teknik notlar:
+- Dinamik bellek (new/delete) kullanmaz.
+- Arduino/STM32 ortamında rahatça gömülü projelerde kullanılabilir.
+
+---
+
+DC FAN LIBRARY DESCRIPTION (EN)
+--------------------------------
+
+Name:
+- DcFan
+
+Files:
+- src/dc_fan.h
+- src/dc_fan.cpp
+
+Purpose:
+- Provide a lightweight DC fan driver for STM32/Arduino projects with PWM control and reliable RPM measurement from the tach signal.
+
+Problems it solves:
+- Control fan speed via 0..255 PWM duty.
+- Measure RPM from tach pulses.
+- Observe small speed changes using period-based RPM measurement.
+
+Scope:
+- DOES:
+  - Initialize PWM and tach pins.
+  - Attach interrupt to tach pin and count pulses.
+  - Compute window-based RPM: ReadRpm(sampleMs).
+  - Compute fast period-based RPM: ReadRpmInstant(timeoutMs).
+- DOES NOT:
+  - Implement PID or closed-loop control (handled by FanControl).
+  - Decide on fan-fault logic (0 RPM handling is up to the application).
+
+Key API:
+- Begin(uint8_t pwmDuty)
+- SetPwmDuty(uint8_t pwmDuty) / GetPwmDuty()
+- GetPwmPercent()
+- ReadRpm(uint32_t sampleMs)
+- ReadRpmInstant(uint32_t timeoutMs)
+
+Typical use:
+- Characterizing fan speed vs PWM.
+- Providing raw RPM feedback to higher-level controllers (e.g. FanControl).
+

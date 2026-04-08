@@ -1,0 +1,93 @@
+MLX90614 KÜTÜPHANESİ AÇIKLAMASI (TR)
+------------------------------------
+
+Adı:
+- Mlx90614
+
+Dosyalar:
+- src/mlx90614.h
+- src/mlx90614.cpp
+
+Amaç:
+- MLX90614 kızılötesi sıcaklık sensörü için hafif, dinamik bellek kullanmayan bir I2C sürücüsü sağlamak.
+
+Çözdüğü problemler:
+- Ortam (Ta) ve nesne (To) sıcaklığını Celsius cinsinden, tek fonksiyon çağrısı ile okumak.
+- Sensörün varsayılan ve alternatif I2C adreslerini yönetmek.
+- Arduino/STM32 ortamında, ağır kütüphanelere ihtiyaç duymadan MLX90614 entegrasyonunu basitleştirmek.
+
+Kapsam (ne yapar / ne yapmaz):
+- YAPAR:
+  - Verilen Wire hattı (TwoWire) üzerinden MLX90614 ile haberleşir.
+  - Cihazın belirli bir adreste cevap verip vermediğini test eder: Begin().
+  - Ortam sıcaklığını okur: ReadAmbientC(float&).
+  - Nesne sıcaklığını okur: ReadObjectC(float&).
+  - I2C adresini değiştirip yeni adreste tekrar deneme yapar: SetAddress(uint8_t).
+- YAPMAZ:
+  - Gelişmiş hata kodu enum’ları ve ayrıntılı hata loglama (bu sürümde bool dönüş + üst seviye log önerilir).
+  - PEC/CRC doğrulaması (datasheet seviyesinde gelişmiş doğrulama gereken projelerde genişletilebilir).
+
+Temel API:
+- explicit Mlx90614(TwoWire& wire, uint8_t address = DefaultAddr)
+  - Harici Wire nesnesini (örneğin global Wire) ve isteğe bağlı başlangıç adresini alır.
+- bool Begin()
+  - Cihazın mevcut adreste yanıt verip vermediğini kontrol eder.
+- bool SetAddress(uint8_t address)
+  - Sensörün adresini değiştirir ve yeni adresi test eder.
+- bool ReadAmbientC(float& tempC)
+  - Ortam sıcaklığını Celsius cinsinden okur.
+- bool ReadObjectC(float& tempC)
+  - Nesne sıcaklığını Celsius cinsinden okur.
+
+Tipik kullanım senaryosu:
+- Temassız sıcaklık ölçümü gereken projeler:
+  - Fan kontrolü, sıcaklık izleme, güvenlik/sıcaklık alarmı gibi uygulamalar.
+- STM32 Nucleo + PlatformIO üzerinde:
+  - MLX90614 test ve demo projeleri.
+
+Teknik notlar:
+- Dinamik bellek (new/delete) ve STL kullanmaz.
+- I2C iletişimi için Arduino TwoWire API’sini kullanır.
+
+---
+
+MLX90614 LIBRARY DESCRIPTION (EN)
+---------------------------------
+
+Name:
+- Mlx90614
+
+Files:
+- src/mlx90614.h
+- src/mlx90614.cpp
+
+Purpose:
+- Provide a lightweight, heap-free I2C driver for the MLX90614 infrared temperature sensor in Arduino/STM32 projects.
+
+Problems it solves:
+- Read ambient (Ta) and object (To) temperatures in Celsius with simple function calls.
+- Manage default and alternate I2C addresses of the sensor.
+- Integrate MLX90614 without pulling heavy external libraries.
+
+Scope:
+- DOES:
+  - Talk to MLX90614 via a given TwoWire instance.
+  - Check whether the device responds at the current address: Begin().
+  - Read ambient temperature: ReadAmbientC(float&).
+  - Read object temperature: ReadObjectC(float&).
+  - Change the I2C address and verify the new address: SetAddress(uint8_t).
+- DOES NOT:
+  - Provide advanced error enums or detailed logging (bool return + upper-layer logging is recommended).
+  - Implement PEC/CRC validation (can be extended for safety-critical designs).
+
+Key API:
+- Mlx90614(TwoWire& wire, uint8_t address = DefaultAddr)
+- bool Begin()
+- bool SetAddress(uint8_t address)
+- bool ReadAmbientC(float& tempC)
+- bool ReadObjectC(float& tempC)
+
+Typical use:
+- Non-contact temperature measurement on STM32/Arduino boards.
+- Feeding temperature data into fan control or monitoring applications.
+

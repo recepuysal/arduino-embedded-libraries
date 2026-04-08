@@ -1,0 +1,35 @@
+{
+  "name": "Sdd1306Oled",
+  "version": "1.1.0",
+  "description": "Modular SSD1306 0.96-inch 128x64 OLED library for Arduino/STM32 with graphics, multi-font text engine, UTF-8 degree symbol, and logo rendering.",
+  "keywords": [
+    "arduino",
+    "stm32",
+    "ssd1306",
+    "oled",
+    "display",
+    "i2c",
+    "graphics",
+    "embedded"
+  ],
+  "repository": {
+    "type": "git",
+    "url": "https://github.com/recepuysal/arduino-embedded-libraries.git"
+  },
+  "authors": [
+    {
+      "name": "Recep Uysal"
+    }
+  ],
+  "frameworks": [
+    "arduino"
+  ],
+  "platforms": [
+    "ststm32",
+    "atmelavr",
+    "espressif32"
+  ],
+  "headers": [
+    "SDD1306.h"
+  ]
+}

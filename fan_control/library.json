@@ -1,0 +1,32 @@
+{
+  "name": "FanControl",
+  "version": "1.0.0",
+  "description": "PID + feedforward based closed-loop fan speed controller for STM32/Arduino.",
+  "keywords": [
+    "arduino",
+    "stm32",
+    "fan-control",
+    "pid",
+    "feedforward",
+    "rpm",
+    "embedded"
+  ],
+  "repository": {
+    "type": "git",
+    "url": "https://github.com/recepuysal/arduino-embedded-libraries.git"
+  },
+  "authors": [
+    {
+      "name": "Recep Uysal"
+    }
+  ],
+  "license": "MIT",
+  "frameworks": [
+    "arduino"
+  ],
+  "platforms": [
+    "ststm32",
+    "atmelavr",
+    "espressif32"
+  ]
+}

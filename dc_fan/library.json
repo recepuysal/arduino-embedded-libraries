@@ -1,0 +1,32 @@
+{
+  "name": "DcFan",
+  "version": "1.0.0",
+  "description": "STM32/Arduino DC fan driver with PWM control and tach-based RPM measurement.",
+  "keywords": [
+    "arduino",
+    "stm32",
+    "fan",
+    "pwm",
+    "tach",
+    "rpm",
+    "embedded"
+  ],
+  "repository": {
+    "type": "git",
+    "url": "https://github.com/recepuysal/arduino-embedded-libraries.git"
+  },
+  "authors": [
+    {
+      "name": "Recep Uysal"
+    }
+  ],
+  "license": "MIT",
+  "frameworks": [
+    "arduino"
+  ],
+  "platforms": [
+    "ststm32",
+    "atmelavr",
+    "espressif32"
+  ]
+}

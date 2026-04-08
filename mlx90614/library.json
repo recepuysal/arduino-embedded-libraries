@@ -1,0 +1,32 @@
+{
+  "name": "Mlx90614",
+  "version": "1.0.0",
+  "description": "Lightweight MLX90614 I2C temperature sensor driver for STM32/Arduino.",
+  "keywords": [
+    "arduino",
+    "stm32",
+    "mlx90614",
+    "i2c",
+    "temperature",
+    "sensor",
+    "embedded"
+  ],
+  "repository": {
+    "type": "git",
+    "url": "https://github.com/recepuysal/arduino-embedded-libraries.git"
+  },
+  "authors": [
+    {
+      "name": "Recep Uysal"
+    }
+  ],
+  "license": "MIT",
+  "frameworks": [
+    "arduino"
+  ],
+  "platforms": [
+    "ststm32",
+    "atmelavr",
+    "espressif32"
+  ]
+}

@@ -1,0 +1,9 @@
+{
+  "name": "RotaryEncoder",
+  "version": "1.1.0",
+  "description": "Quadrature rotary encoder (KY-040) with menu/value scaling profiles and optional limits.",
+  "keywords": ["encoder", "rotary", "quadrature", "ky-040", "arduino", "stm32"],
+  "frameworks": ["arduino"],
+  "platforms": ["ststm32", "atmelavr", "espressif32"],
+  "headers": ["rotary_encoder.h"]
+}

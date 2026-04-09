@@ -1,0 +1,19 @@
+{
+  "name": "ds18b20",
+  "version": "1.0.0",
+  "description": "Non-blocking DS18B20 one-wire temperature sensor driver for Arduino/STM32 without external dependencies.",
+  "keywords": [
+    "ds18b20",
+    "onewire",
+    "temperature",
+    "sensor",
+    "stm32",
+    "arduino"
+  ],
+  "frameworks": [
+    "arduino"
+  ],
+  "platforms": [
+    "*"
+  ]
+}

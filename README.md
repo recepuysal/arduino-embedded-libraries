@@ -1,8 +1,8 @@
 # Arduino Embedded Libraries
 
-TR: Arduino ve STM32 icin moduler, hafif ve tekrar kullanilabilir gomulu C++ kutuphaneler. Bu repo SH1106/SSD1306 OLED suruculeri, fan surme-kontrol modulleri, MLX90614 I2C sicaklik sensor surucusu ve rotary encoder menu/sayi secim altyapisi sunar.
+TR: Arduino ve STM32 icin moduler, hafif ve tekrar kullanilabilir gomulu C++ kutuphaneler. Bu repo SH1106/SSD1306 OLED suruculeri, fan surme-kontrol modulleri, MLX90614 I2C sicaklik sensor surucusu, DS18B20 1-Wire non-blocking sicaklik surucusu ve rotary encoder menu/sayi secim altyapisi sunar.
 
-EN: A modular, lightweight, reusable embedded C++ library collection for Arduino and STM32. It provides SH1106/SSD1306 OLED drivers, fan drive/control modules, an MLX90614 I2C temperature sensor driver, and a rotary encoder input layer for menu/value selection.
+EN: A modular, lightweight, reusable embedded C++ library collection for Arduino and STM32. It provides SH1106/SSD1306 OLED drivers, fan drive/control modules, an MLX90614 I2C temperature sensor driver, a DS18B20 1-Wire non-blocking temperature driver, and a rotary encoder input layer for menu/value selection.
 
 ## Icerik
 
@@ -10,6 +10,7 @@ EN: A modular, lightweight, reusable embedded C++ library collection for Arduino
 - `fan_control`: PID + feedforward tabanli hedef RPM kontrolu
 - `mlx90614`: MLX90614 I2C kizilotesi sicaklik sensor surucusu
 - `rotary_encoder`: Quadrature encoder (KY-040) surucusu, menu/sayi davranis modlari ve opsiyonel buton
+- `ds18b20`: DS18B20 1-Wire sicaklik sensor surucusu (non-blocking donusum akisi)
 - `sh1106_oled`: SH1106 1.3" 128x64 OLED surucusu, cizim ve metin motoru
 - `sdd1306_oled`: SSD1306 0.96" 128x64 OLED surucusu, moduler metin/graphics motoru
 
@@ -104,7 +105,23 @@ void loop() {
 }
 ```
 
-### 5) `sh1106_oled`
+### 5) `ds18b20`
+
+Amac:
+- DS18B20 sensorunden non-blocking sicaklik okumasi yapmak
+
+Temel ozellikler:
+- `StartConversion()` ile donusumu tetikleme (bloklamaz)
+- `IsConversionReady(nowMs)` ile donusum hazirlik kontrolu
+- `ReadLastConversion(float&)` ile son donusum sonucunu CRC kontrolu ile okuma
+- Harici kutuphane gerektirmez (OneWire/DallasTemperature yok)
+
+Klasor:
+- `lib/ds18b20/`
+- Ornek:
+  - `lib/ds18b20/examples/ds18b20_non_blocking_demo/ds18b20_non_blocking_demo.ino`
+
+### 6) `sh1106_oled`
 
 Amac:
 - SH1106 tabanli 1.3" 128x64 OLED ekranlari STM32/Arduino ile surmek
@@ -120,7 +137,7 @@ Temel ozellikler:
 Klasor:
 - `sh1106_oled/`
 
-### 6) `sdd1306_oled`
+### 7) `sdd1306_oled`
 
 Amac:
 - SSD1306 tabanli 0.96" 128x64 OLED ekranlari STM32/Arduino ile surmek
@@ -142,6 +159,7 @@ Klasor:
 STM32_Arduino/
 |-- lib/
 |   |-- dc_fan/
+|   |-- ds18b20/
 |   |-- fan_control/
 |   |-- mlx90614/
 |   |-- rotary_encoder/
